@@ -27,7 +27,7 @@ log.post<-function(data, alpha, beta){
 
 nIter <- 50000
 acc <- 0
-csig <-1.4
+csig <-.9
 
 
 alpha <- rep(0,nIter)
@@ -64,6 +64,7 @@ beta<-beta[-(1:1000)]
 sleepTime<-rgamma(49000*10, alpha, scale=beta)
 plot(density(sleepTime), xlim=c(0,100), main="Posterior Predictive", xlab="Minutes to Fall Asleep", ylim=c(0, .04))
 lines(density(prior.pred), col="red", lty=2)
+legend("topright", lty=c(1,2), col=c("black", "red"), legend=c("Posterior Predictive", "Prior Predictive"))
 
 mean(prior.pred>100)
 mean(sleepTime>100)
@@ -73,3 +74,7 @@ mean(sleepTime)
 var(sleepTime) #Variance of our predicted next draw
 mean(alpha*beta^2) #Variance of possible draws
 
+mean(alpha*beta) #Mean
+quantile(alpha*beta, c(.025, .975)) ##95% credible interval on the AVERAGE time it takes me to fall asleep
+
+quantile(sleepTime, c(.025, .975)) ##95% prediction interval
