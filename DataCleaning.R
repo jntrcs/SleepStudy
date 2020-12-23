@@ -1,5 +1,7 @@
 require(xlsx)
 require(timeDate)
+library(tidyverse)
+
 raw<-read.xlsx("Sleep Experiment.xlsx", sheetIndex=1, header=T)
 
 raw<-raw[!is.na(raw$Status),]
